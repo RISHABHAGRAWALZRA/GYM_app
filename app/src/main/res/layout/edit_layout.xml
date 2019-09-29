@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardedit"
+    android:layout_width="230dp"
+    android:layout_height="230dp"
+    android:layout_margin="8dp"
+    android:orientation="vertical"
+    app:cardBackgroundColor="#4f4d4d"
+    app:cardCornerRadius="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="7dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/edtvnm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="#ffc000"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/edchkbx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="110dp"
+                android:backgroundTint="#F44336"
+                android:buttonTint="@color/colorTint"
+                android:shadowColor="#F44336"
+                android:textColor="#ffc000"
+                android:textColorHighlight="#13fc03"
+                android:textColorLink="#15ff00"
+                android:textCursorDrawable="@drawable/colorgrn" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/edimgVw"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginBottom="15dp"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/edtvtim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="TextView"
+            android:textColor="#ffc000"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
