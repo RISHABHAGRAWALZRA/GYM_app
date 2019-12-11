@@ -1,5 +1,6 @@
 package com.example.gymapp;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -15,5 +16,8 @@ public interface AllActivityDAO {
 
     @Query("SELECT * FROM AllActivities")
     List<Activity> getAllActivities();
+
+    @Query("SELECT * FROM AllActivities")
+    LiveData<List<Activity>> getLiveAllActivities();
 
 }
