@@ -20,13 +20,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class plannedActivityAdapter extends RecyclerView.Adapter<plannedActivityAdapter.ViewHolder>{
 
-    private ArrayList<Activity> list;
+    private List<setActivities> list;
     private Context context;
 
-    public plannedActivityAdapter(ArrayList<Activity> list, Context context) {
+    private ActivityDatabase db=Utility.getDb();
+
+    public plannedActivityAdapter(List<setActivities> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -56,11 +59,15 @@ public class plannedActivityAdapter extends RecyclerView.Adapter<plannedActivity
             holder.chkbx.setChecked(false);
         }
 
+
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(context,descriptionActivity.class);
-                Activity a=list.get(position);
+                Activity a=new Activity();
+                a.setActionName(list.get(position).getActionName());
+                a.setDesciption(list.get(position).getDesciption());
+                a.setImgurl(list.get(position).getImgurl());
                 intent.putExtra("activity",a);
                 context.startActivity(intent);
 
@@ -80,12 +87,14 @@ public class plannedActivityAdapter extends RecyclerView.Adapter<plannedActivity
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             list.get(position).setCheck(true);
+                            db.setActivitiesDAO().updatecheck(list.get(position).getDay(),true,list.get(position).getActionName());
                         }
                     });
                     builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             holder.chkbx.setChecked(false);
+                            db.setActivitiesDAO().updatecheck(list.get(position).getDay(),false,list.get(position).getActionName());
                         }
                     });
                     builder.create().show();
@@ -98,6 +107,7 @@ public class plannedActivityAdapter extends RecyclerView.Adapter<plannedActivity
 //                        @Override
 //                        public void onClick(DialogInterface dialogInterface, int i) {
                             list.get(position).setCheck(false);
+                            db.setActivitiesDAO().updatecheck(list.get(position).getDay(),false,list.get(position).getActionName());
 //                        }
 //                    });
 //                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

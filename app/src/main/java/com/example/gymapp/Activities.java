@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Activities extends AppCompatActivity {
 
@@ -24,8 +25,8 @@ public class Activities extends AppCompatActivity {
 
         recyclerView=findViewById(R.id.rltv);
 
-          Utility util=new Utility();
-          ArrayList<Activity> list=util.getAllActivities();
+
+          List<Activity> list=Utility.getAllActivities();
           allActivityAdapter =new allActivityAdapter(list,this);
           recyclerView.setAdapter(allActivityAdapter);
           recyclerView.setLayoutManager(new LinearLayoutManager(this));

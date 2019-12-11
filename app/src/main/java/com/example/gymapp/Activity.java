@@ -3,30 +3,40 @@ package com.example.gymapp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "AllActivities")
 public class Activity implements Parcelable{
 
+    @NonNull
+    @PrimaryKey
     private String actionName;
     private String imgurl;
     private String desciption;
-    private int min;
-    private Boolean check=false;
 
-    public Activity(String actionName, String imgurl, String desciption) {
+
+
+    @Ignore
+    public Activity(){
+    }
+
+    public Activity(@NonNull String actionName, String imgurl, String desciption) {
         this.actionName = actionName;
         this.imgurl = imgurl;
         this.desciption = desciption;
     }
 
-    public Activity(){
-    }
-
+    @Ignore
     protected Activity(Parcel in) {
         actionName = in.readString();
         imgurl = in.readString();
         desciption = in.readString();
-        min = in.readInt();
     }
 
+    @Ignore
     public static final Creator<Activity> CREATOR = new Creator<Activity>() {
         @Override
         public Activity createFromParcel(Parcel in) {
@@ -38,23 +48,6 @@ public class Activity implements Parcelable{
             return new Activity[size];
         }
     };
-
-    public Boolean getCheck() {
-        return check;
-    }
-
-    public void setCheck(Boolean check) {
-        this.check = check;
-    }
-
-    public int getMin() {
-        return min;
-    }
-
-    public void setMin(int min) {
-        this.min = min;
-    }
-
 
     public String getActionName() {
         return actionName;
@@ -80,6 +73,7 @@ public class Activity implements Parcelable{
         this.desciption = desciption;
     }
 
+    @Ignore
     @Override
     public String toString() {
         return "Activity{" +
@@ -89,16 +83,17 @@ public class Activity implements Parcelable{
                 '}';
     }
 
+    @Ignore
     @Override
     public int describeContents() {
         return 0;
     }
 
+    @Ignore
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(actionName);
         parcel.writeString(imgurl);
         parcel.writeString(desciption);
-        parcel.writeInt(min);
     }
 }

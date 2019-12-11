@@ -20,14 +20,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class editAdapter extends RecyclerView.Adapter<editAdapter.ViewHolder>{
 
-    private ArrayList<Activity> list;
+    private List<setActivities> list;
     private Context context;
     private String day;
 
-    public editAdapter(ArrayList<Activity> list, Context context, String day) {
+    private ActivityDatabase db=Utility.getDb();
+
+    public editAdapter(List<setActivities> list, Context context, String day) {
         this.list = list;
         this.context = context;
         this.day = day;
@@ -61,40 +64,47 @@ public class editAdapter extends RecyclerView.Adapter<editAdapter.ViewHolder>{
                     builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Utility util=new Utility();
-                            switch (day){
-                                case "Mon":
-                                    util.removemonActivity(list.get(position));
-                                    Utility.noOfActivitiesplanned--;
-                                    notifyDataSetChanged();
-                                    break;
-                                case "Tue":
-                                    util.removetueActivity(list.get(position));
-                                    Utility.noOfActivitiesplanned--;
-                                    notifyDataSetChanged();
-                                    break;
-                                case "Wed":
-                                    util.removewedActivity(list.get(position));
-                                    Utility.noOfActivitiesplanned--;
-                                    notifyDataSetChanged();
-                                    break;
-                                case "Thur":
-                                    util.removethurActivity(list.get(position));
-                                    Utility.noOfActivitiesplanned--;
-                                    notifyDataSetChanged();
-                                    break;
-                                case "Fri":
-                                    util.removefriActivity(list.get(position));
-                                    Utility.noOfActivitiesplanned--;
-                                    notifyDataSetChanged();
-                                    break;
-                                case "Sat":
-                                    util.removesatActivity(list.get(position));
-                                    Utility.noOfActivitiesplanned--;
-                                    notifyDataSetChanged();
-                                    break;
-                                default:break;
-                            }
+
+
+                            db.setActivitiesDAO().deletebyname(list.get(position).getActionName(),list.get(position).getDay());
+                            Utility.removesetActivity(list.get(position));
+                            Utility.removeActivity(list.get(position));
+                            Utility.noOfActivitiesplanned--;
+                            notifyDataSetChanged();
+//                            switch (day){
+//                                case "Mon":
+//                                    Utility.removesetActivity(list.get(position));
+//                                    Utility.removeActivity(list.get(position));
+//                                    Utility.noOfActivitiesplanned--;
+//                                    notifyDataSetChanged();
+//                                    break;
+//                                case "Tue":
+//                                    util.removetueActivity(list.get(position));
+//                                    Utility.noOfActivitiesplanned--;
+//                                    notifyDataSetChanged();
+//                                    break;
+//                                case "Wed":
+//                                    util.removewedActivity(list.get(position));
+//                                    Utility.noOfActivitiesplanned--;
+//                                    notifyDataSetChanged();
+//                                    break;
+//                                case "Thur":
+//                                    util.removethurActivity(list.get(position));
+//                                    Utility.noOfActivitiesplanned--;
+//                                    notifyDataSetChanged();
+//                                    break;
+//                                case "Fri":
+//                                    util.removefriActivity(list.get(position));
+//                                    Utility.noOfActivitiesplanned--;
+//                                    notifyDataSetChanged();
+//                                    break;
+//                                case "Sat":
+//                                    util.removesatActivity(list.get(position));
+//                                    Utility.noOfActivitiesplanned--;
+//                                    notifyDataSetChanged();
+//                                    break;
+//                                default:break;
+//                            }
                         }
                     });
                     builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

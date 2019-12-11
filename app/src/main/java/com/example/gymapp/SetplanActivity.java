@@ -13,6 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SetplanActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btnaddanw;
@@ -20,11 +23,23 @@ public class SetplanActivity extends AppCompatActivity implements View.OnClickLi
     plannedActivityAdapter admon,adtue,adwed,adthur,adfri,adsat;
     TextView txtmon,txttue,txtwed,txtthur,txtfri,txtsat;
 
+
+    List<setActivities> setActivities0=Utility.getSetActivities();
+
+
+    List<setActivities> MonActivities;
+    List<setActivities> TueActivities;
+    List<setActivities> WedActivities;
+    List<setActivities> ThurActivities;
+    List<setActivities> FriActivities;
+    List<setActivities> SatActivities;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(Utility.noOfActivitiesplanned==0){
+        if(setActivities0.isEmpty()){
             setContentView(R.layout.activity_setplan);
 
             btnaddanw=findViewById(R.id.btnaddanw);
@@ -46,12 +61,46 @@ public class SetplanActivity extends AppCompatActivity implements View.OnClickLi
             refri=findViewById(R.id.refri);
             resat=findViewById(R.id.resat);
 
-            admon=new plannedActivityAdapter(Utility.getMonActivities(),this);
-            adtue=new plannedActivityAdapter(Utility.getTueActivities(),this);
-            adwed=new plannedActivityAdapter(Utility.getWedActivities(),this);
-            adthur=new plannedActivityAdapter(Utility.getThurActivities(),this);
-            adfri=new plannedActivityAdapter(Utility.getFriActivities(),this);
-            adsat=new plannedActivityAdapter(Utility.getSatActivities(),this);
+             MonActivities=new ArrayList<>();
+             TueActivities=new ArrayList<>();
+             WedActivities=new ArrayList<>();
+             ThurActivities=new ArrayList<>();
+             FriActivities=new ArrayList<>();
+             SatActivities=new ArrayList<>();
+
+
+            
+            for(int i=0;i<setActivities0.size();i++){
+                switch (setActivities0.get(i).getDay()){
+                    case "Monday":
+                        MonActivities.add(setActivities0.get(i));
+                        break;
+                    case "Tuesday":
+                        TueActivities.add(setActivities0.get(i));
+                        break;
+                    case "Wednesday":
+                        WedActivities.add(setActivities0.get(i));
+                        break;
+                    case "Thursday":
+                        ThurActivities.add(setActivities0.get(i));
+                        break;
+                    case "Friday":
+                        FriActivities.add(setActivities0.get(i));
+                        break;
+                    case "Saturday":
+                        SatActivities.add(setActivities0.get(i));
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            admon=new plannedActivityAdapter(MonActivities,this);
+            adtue=new plannedActivityAdapter(TueActivities,this);
+            adwed=new plannedActivityAdapter(WedActivities,this);
+            adthur=new plannedActivityAdapter(ThurActivities,this);
+            adfri=new plannedActivityAdapter(FriActivities,this);
+            adsat=new plannedActivityAdapter(SatActivities,this);
 
             remon.setAdapter(admon);
             remon.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
@@ -97,27 +146,33 @@ public class SetplanActivity extends AppCompatActivity implements View.OnClickLi
 
         switch (view.getId()){
             case R.id.txtdedmon:
-                intent.putParcelableArrayListExtra("list",Utility.getMonActivities());
+//                intent.putParcelableArrayListExtra("list",MonActivities);
+                Utility.setActivity(MonActivities);
                 intent.putExtra("day","Mon");
                 break;
             case R.id.txtedtue:
-                intent.putParcelableArrayListExtra("list",Utility.getTueActivities());
+//                intent.putParcelableArrayListExtra("list",TueActivities);
+                Utility.setActivity(TueActivities);
                 intent.putExtra("day","Tue");
                 break;
             case R.id.txtedwed:
-                intent.putExtra("list",Utility.getWedActivities());
+//                intent.putExtra("list",WedActivities);
+                Utility.setActivity(WedActivities);
                 intent.putExtra("day","Wed");
                 break;
             case R.id.txtedthur:
-                intent.putExtra("list",Utility.getThurActivities());
+//                intent.putExtra("list",ThurActivities);
+                Utility.setActivity(ThurActivities);
                 intent.putExtra("day","Thur");
                 break;
             case R.id.txtedfri:
-                intent.putExtra("list",Utility.getFriActivities());
+//                intent.putExtra("list",FriActivities);
+                Utility.setActivity(FriActivities);
                 intent.putExtra("day","Fri");
                 break;
             case R.id.txtedsat:
-                intent.putExtra("list",Utility.getSatActivities());
+//                intent.putExtra("list",SatActivities);
+                Utility.setActivity(SatActivities);
                 intent.putExtra("day","Sat");
                 break;
             default:break;
